@@ -1,0 +1,2810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RevenueFlow | Subscriptions</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+    color: #1e293b;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 245px;
+    height: 100vh;
+    background: #111827;
+    color: white;
+    padding: 24px 16px;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px 30px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo-text span {
+    color: #8b5cf6;
+}
+
+.menu-title {
+    color: #64748b;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 12px;
+    margin-bottom: 10px;
+}
+
+.nav-menu {
+    list-style: none;
+}
+
+.nav-menu li {
+    margin-bottom: 6px;
+}
+
+.nav-menu a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    text-decoration: none;
+    color: #cbd5e1;
+    padding: 12px 13px;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.nav-menu a:hover {
+    background: #1e293b;
+    color: white;
+}
+
+.nav-menu a.active {
+    background: #4f46e5;
+    color: white;
+}
+
+.nav-icon {
+    width: 22px;
+    text-align: center;
+}
+
+.sidebar-bottom {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    right: 16px;
+}
+
+.admin-box {
+    background: #1e293b;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #6366f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.admin-info {
+    flex: 1;
+}
+
+.admin-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.admin-role {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+    margin-left: 245px;
+    min-height: 100vh;
+}
+
+.topbar {
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 35px;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.breadcrumb strong {
+    color: #334155;
+}
+
+.date-box {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.content {
+    padding: 32px 35px;
+}
+
+/* ================= HEADER ================= */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.page-title {
+    font-size: 27px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.page-subtitle {
+    color: #64748b;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.primary-btn {
+    border: none;
+    background: #4f46e5;
+    color: white;
+    padding: 11px 17px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.primary-btn:hover {
+    background: #4338ca;
+}
+
+/* ================= STATS ================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.stat-label {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.stat-value {
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+.green {
+    color: #16a34a;
+}
+
+.blue {
+    color: #2563eb;
+}
+
+.red {
+    color: #dc2626;
+}
+
+.orange {
+    color: #ea580c;
+}
+
+/* ================= TOOLBAR ================= */
+
+.toolbar {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px 14px 0 0;
+    padding: 17px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.search-box {
+    flex: 1;
+    max-width: 420px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #dbe1ea;
+    border-radius: 9px;
+    outline: none;
+    font-size: 13px;
+}
+
+.search-box input:focus {
+    border-color: #6366f1;
+}
+
+.filter select {
+    padding: 11px 15px;
+    border: 1px solid #dbe1ea;
+    border-radius: 9px;
+    background: white;
+    outline: none;
+}
+
+/* ================= TABLE ================= */
+
+.table-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    overflow: hidden;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #f8fafc;
+    color: #94a3b8;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 14px 18px;
+}
+
+td {
+    padding: 16px 18px;
+    border-top: 1px solid #f1f5f9;
+    font-size: 13px;
+}
+
+.customer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ede9fe;
+    color: #5b21b6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+.customer-name {
+    font-weight: 600;
+}
+
+.customer-email {
+    font-size: 10px;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+.plan-name {
+    font-weight: 600;
+}
+
+.plan-price {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 3px;
+}
+
+/* ================= BADGES ================= */
+
+.badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.active {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.upcoming {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.expired {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.cancelled {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* ================= ACTIONS ================= */
+
+.actions {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    border: none;
+    padding: 7px 9px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.edit-btn {
+    background: #eef2ff;
+    color: #4338ca;
+}
+
+.renew-btn {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.subscription-cancel-btn {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.reactivate-btn {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.delete-btn {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+/* ================= FORM ================= */
+
+.form-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+}
+
+.form-overlay.show {
+    display: flex;
+}
+
+.form-box {
+    width: 480px;
+    max-width: 94%;
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.form-title {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.close-btn {
+    border: none;
+    background: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #dbe1ea;
+    border-radius: 8px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #6366f1;
+}
+
+.form-group input[readonly] {
+    background: #f8fafc;
+    color: #475569;
+    cursor: not-allowed;
+}
+
+.duration-info {
+    display: block;
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 11px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    border: 1px solid #dbe1ea;
+    background: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.save-btn {
+    border: none;
+    background: #4f46e5;
+    color: white;
+    padding: 10px 17px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ================= EMPTY ================= */
+
+.empty {
+    text-align: center;
+    padding: 55px 20px;
+    color: #94a3b8;
+}
+
+.empty-icon {
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.empty-title {
+    color: #475569;
+    font-weight: 600;
+}
+
+.empty-text {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* ================= TOAST ================= */
+
+.toast {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background: #0f172a;
+    color: white;
+    padding: 13px 18px;
+    border-radius: 9px;
+    font-size: 13px;
+    display: none;
+    z-index: 1000;
+}
+
+.toast.show {
+    display: block;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px) {
+
+    .stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:750px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .logo-text,
+    .menu-title,
+    .nav-menu span,
+    .admin-info,
+    .logout-btn {
+        display: none;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    .nav-menu a {
+        justify-content: center;
+    }
+
+    .admin-box {
+        justify-content: center;
+    }
+
+    .main {
+        margin-left: 70px;
+    }
+
+    .content {
+        padding: 22px 15px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .toolbar {
+        flex-direction: column;
+    }
+
+    .search-box {
+        max-width: none;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            R
+        </div>
+
+        <div class="logo-text">
+            Revenue<span>Flow</span>
+        </div>
+
+    </div>
+
+    <div class="menu-title">
+        Main Menu
+    </div>
+
+    <ul class="nav-menu">
+
+        <li>
+            <a href="index.html">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="customers.html">
+                <span class="nav-icon">👥</span>
+                <span>Customers</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="plans.html">
+                <span class="nav-icon">▣</span>
+                <span>Plans</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="subscriptions.html" class="active">
+                <span class="nav-icon">↻</span>
+                <span>Subscriptions</span>
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="sidebar-bottom">
+
+        <div class="admin-box">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div class="admin-info">
+
+                <div class="admin-name">
+                    Admin
+                </div>
+
+                <div class="admin-role">
+                    Administrator
+                </div>
+
+            </div>
+
+            <button class="logout-btn"
+                    onclick="logout()">
+                ↪
+            </button>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <header class="topbar">
+
+        <div class="breadcrumb">
+            RevenueFlow /
+            <strong>Subscriptions</strong>
+        </div>
+
+        <div class="date-box"
+             id="currentDate">
+        </div>
+
+    </header>
+
+
+    <section class="content">
+
+        <div class="page-header">
+
+            <div>
+
+                <h1 class="page-title">
+                    Subscriptions
+                </h1>
+
+                <p class="page-subtitle">
+                    Manage subscription lifecycle and renewals
+                </p>
+
+            </div>
+
+            <button class="primary-btn"
+                    onclick="openCreateForm()">
+
+                + New Subscription
+
+            </button>
+
+        </div>
+
+
+        <!-- ================= STATS ================= -->
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Total Subscriptions
+                </div>
+
+                <div class="stat-value"
+                     id="totalCount">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Active
+                </div>
+
+                <div class="stat-value green"
+                     id="activeCount">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Upcoming
+                </div>
+
+                <div class="stat-value blue"
+                     id="upcomingCount">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Expired
+                </div>
+
+                <div class="stat-value red"
+                     id="expiredCount">
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= TOOLBAR ================= -->
+
+        <div class="toolbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by customer or plan..."
+                    oninput="renderSubscriptions()">
+
+            </div>
+
+
+            <div class="filter">
+
+                <select
+                    id="statusFilter"
+                    onchange="renderSubscriptions()">
+
+                    <option value="ALL">
+                        All Status
+                    </option>
+
+                    <option value="ACTIVE">
+                        Active
+                    </option>
+
+                    <option value="UPCOMING">
+                        Upcoming
+                    </option>
+
+                    <option value="EXPIRED">
+                        Expired
+                    </option>
+
+                    <option value="CANCELLED">
+                        Cancelled
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= TABLE ================= -->
+
+        <div class="table-card">
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Customer</th>
+
+                            <th>Plan</th>
+
+                            <th>Start Date</th>
+
+                            <th>End Date</th>
+
+                            <th>Status</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="subscriptionTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= FORM ================= -->
+
+<div class="form-overlay"
+     id="formOverlay">
+
+    <div class="form-box">
+
+        <div class="form-header">
+
+            <div class="form-title"
+                 id="formTitle">
+
+                New Subscription
+
+            </div>
+
+            <button class="close-btn"
+                    onclick="closeForm()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <input type="hidden"
+               id="subscriptionId">
+
+
+        <div class="form-group">
+
+            <label>
+                Customer
+            </label>
+
+            <select id="customerSelect">
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Plan
+            </label>
+
+            <select id="planSelect"
+                    onchange="calculateEndDate()">
+            </select>
+
+            <span class="duration-info"
+                  id="durationInfo">
+
+                Select a plan to see its subscription duration.
+
+            </span>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Start Date
+            </label>
+
+            <input type="date"
+                   id="startDate"
+                   onchange="calculateEndDate()">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                End Date
+            </label>
+
+            <input type="date"
+                   id="endDate"
+                   readonly>
+
+            <span class="duration-info">
+
+                End date is automatically calculated from the selected plan.
+
+            </span>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button class="cancel-btn"
+                    onclick="closeForm()">
+
+                Cancel
+
+            </button>
+
+            <button class="save-btn"
+                    onclick="saveSubscription()">
+
+                Save Subscription
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div class="toast"
+     id="toast">
+</div>
+
+
+<script>
+
+/* ================= LOGIN ================= */
+
+if (
+    localStorage.getItem("adminLoggedIn") !== "true"
+) {
+
+    window.location.href = "login.html";
+
+}
+
+
+/* ================= API ================= */
+
+const API =
+    "http://localhost:8080";
+
+
+let customers = [];
+
+let plans = [];
+
+let subscriptions = [];
+
+
+/* ================= CURRENT DATE ================= */
+
+document.getElementById("currentDate").textContent =
+    new Date().toLocaleDateString(
+        "en-IN",
+        {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
+
+
+/* ================= LOAD DATA ================= */
+
+async function loadData() {
+
+    try {
+
+        const results =
+            await Promise.all([
+
+                fetch(API + "/customers"),
+
+                fetch(API + "/plans"),
+
+                fetch(API + "/subscriptions")
+
+            ]);
+
+
+        if (
+            !results[0].ok ||
+            !results[1].ok ||
+            !results[2].ok
+        ) {
+
+            throw new Error(
+                "Failed to load data"
+            );
+
+        }
+
+
+        customers =
+            await results[0].json();
+
+        plans =
+            await results[1].json();
+
+        subscriptions =
+            await results[2].json();
+
+
+        populateCustomers();
+
+        populatePlans();
+
+        updateStats();
+
+        renderSubscriptions();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        showToast(
+            "Unable to load subscription data"
+        );
+
+    }
+
+}
+
+
+/* ================= CUSTOMERS ================= */
+
+function populateCustomers() {
+
+    const select =
+        document.getElementById(
+            "customerSelect"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select Customer
+        </option>
+
+    `;
+
+
+    customers.forEach(
+        customer => {
+
+            select.innerHTML += `
+
+                <option value="${customer.id}">
+                    ${customer.name}
+                </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* ================= PLANS ================= */
+
+function populatePlans() {
+
+    const select =
+        document.getElementById(
+            "planSelect"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select Plan
+        </option>
+
+    `;
+
+
+    plans.forEach(
+        plan => {
+
+            select.innerHTML += `
+
+                <option value="${plan.id}">
+
+                    ${plan.name}
+                    - ₹${plan.price}
+                    - ${getPlanDuration(plan)}
+
+                </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* ================= PLAN DURATION ================= */
+
+function getPlanDuration(plan) {
+
+    if (!plan) {
+        return "Subscription";
+    }
+
+    if (plan.name === "Basic") {
+        return "1 Month";
+    }
+
+    if (plan.name === "Pro") {
+        return "6 Months";
+    }
+
+    if (plan.name === "Enterprise") {
+        return "1 Year";
+    }
+
+    if (plan.billingCycle) {
+        return plan.billingCycle;
+    }
+
+    return "Subscription";
+
+}
+
+
+/* ================= FIND CUSTOMER ================= */
+
+function getCustomer(id) {
+
+    return customers.find(
+        customer => customer.id == id
+    );
+
+}
+
+
+/* ================= FIND PLAN ================= */
+
+function getPlan(id) {
+
+    return plans.find(
+        plan => plan.id == id
+    );
+
+}
+
+
+/* ================= STATUS ================= */
+
+function getStatus(subscription) {
+
+    /*
+     * CANCELLED always has priority.
+     */
+
+    if (
+        subscription.status === "CANCELLED"
+    ) {
+
+        return "CANCELLED";
+
+    }
+
+
+    const today =
+        new Date();
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    const start =
+        new Date(
+            subscription.startDate +
+            "T00:00:00"
+        );
+
+
+    const end =
+        new Date(
+            subscription.endDate +
+            "T00:00:00"
+        );
+
+
+    start.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    end.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    if (start > today) {
+
+        return "UPCOMING";
+
+    }
+
+
+    if (end < today) {
+
+        return "EXPIRED";
+
+    }
+
+
+    return "ACTIVE";
+
+}
+
+
+/* ================= DATE FORMAT ================= */
+
+function formatDate(date) {
+
+    if (!date) {
+        return "-";
+    }
+
+
+    return new Date(
+        date + "T00:00:00"
+    ).toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* ================= INITIALS ================= */
+
+function initials(name) {
+
+    if (!name) {
+        return "?";
+    }
+
+
+    return name
+        .split(" ")
+        .map(x => x[0])
+        .join("")
+        .substring(0, 2)
+        .toUpperCase();
+
+}
+
+
+/* ================= ADD MONTHS ================= */
+
+function addMonths(date, months) {
+
+    const result =
+        new Date(date);
+
+
+    const originalDay =
+        result.getDate();
+
+
+    result.setDate(1);
+
+
+    result.setMonth(
+        result.getMonth() + months
+    );
+
+
+    const lastDay =
+        new Date(
+            result.getFullYear(),
+            result.getMonth() + 1,
+            0
+        ).getDate();
+
+
+    result.setDate(
+        Math.min(
+            originalDay,
+            lastDay
+        )
+    );
+
+
+    return result;
+
+}
+
+
+/* ================= ADD YEARS ================= */
+
+function addYears(date, years) {
+
+    const result =
+        new Date(date);
+
+
+    const month =
+        result.getMonth();
+
+
+    const day =
+        result.getDate();
+
+
+    result.setDate(1);
+
+
+    result.setFullYear(
+        result.getFullYear() + years
+    );
+
+
+    result.setMonth(month);
+
+
+    const lastDay =
+        new Date(
+            result.getFullYear(),
+            result.getMonth() + 1,
+            0
+        ).getDate();
+
+
+    result.setDate(
+        Math.min(day, lastDay)
+    );
+
+
+    return result;
+
+}
+
+
+/* ================= DATE TO INPUT ================= */
+
+function dateToInputValue(date) {
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* ================= CALCULATE END DATE ================= */
+
+function calculateEndDate() {
+
+    const planId =
+        document.getElementById(
+            "planSelect"
+        ).value;
+
+
+    const startDateValue =
+        document.getElementById(
+            "startDate"
+        ).value;
+
+
+    const endDateInput =
+        document.getElementById(
+            "endDate"
+        );
+
+
+    const durationInfo =
+        document.getElementById(
+            "durationInfo"
+        );
+
+
+    if (
+        !planId ||
+        !startDateValue
+    ) {
+
+        endDateInput.value = "";
+
+        durationInfo.textContent =
+            "Select a plan and start date.";
+
+        return;
+
+    }
+
+
+    const plan =
+        getPlan(planId);
+
+
+    const startDate =
+        new Date(
+            startDateValue +
+            "T00:00:00"
+        );
+
+
+    let endDate;
+
+
+    if (
+        plan.name === "Basic"
+    ) {
+
+        endDate =
+            addMonths(
+                startDate,
+                1
+            );
+
+        durationInfo.textContent =
+            "Basic plan duration: 1 Month";
+
+    }
+
+    else if (
+        plan.name === "Pro"
+    ) {
+
+        endDate =
+            addMonths(
+                startDate,
+                6
+            );
+
+        durationInfo.textContent =
+            "Pro plan duration: 6 Months";
+
+    }
+
+    else if (
+        plan.name === "Enterprise"
+    ) {
+
+        endDate =
+            addYears(
+                startDate,
+                1
+            );
+
+        durationInfo.textContent =
+            "Enterprise plan duration: 1 Year";
+
+    }
+
+    else {
+
+        endDate =
+            addMonths(
+                startDate,
+                1
+            );
+
+        durationInfo.textContent =
+            "Subscription duration calculated automatically.";
+
+    }
+
+
+    endDateInput.value =
+        dateToInputValue(
+            endDate
+        );
+
+}
+
+
+/* ================= UPDATE STATS ================= */
+
+function updateStats() {
+
+    let active = 0;
+
+    let upcoming = 0;
+
+    let expired = 0;
+
+
+    subscriptions.forEach(
+        subscription => {
+
+            const status =
+                getStatus(subscription);
+
+
+            if (
+                status === "ACTIVE"
+            ) {
+
+                active++;
+
+            }
+
+            else if (
+                status === "UPCOMING"
+            ) {
+
+                upcoming++;
+
+            }
+
+            else if (
+                status === "EXPIRED"
+            ) {
+
+                expired++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        subscriptions.length;
+
+
+    document.getElementById(
+        "activeCount"
+    ).textContent =
+        active;
+
+
+    document.getElementById(
+        "upcomingCount"
+    ).textContent =
+        upcoming;
+
+
+    document.getElementById(
+        "expiredCount"
+    ).textContent =
+        expired;
+
+}
+
+
+/* ================= RENDER ================= */
+
+function renderSubscriptions() {
+
+    const table =
+        document.getElementById(
+            "subscriptionTable"
+        );
+
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value.toLowerCase();
+
+
+    const filter =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+
+    const filtered =
+        subscriptions.filter(
+            subscription => {
+
+                const customer =
+                    getCustomer(
+                        subscription.customerId
+                    );
+
+
+                const plan =
+                    getPlan(
+                        subscription.planId
+                    );
+
+
+                const customerName =
+                    customer
+                        ? (
+                            customer.name || ""
+                        ).toLowerCase()
+                        : "";
+
+
+                const planName =
+                    plan
+                        ? (
+                            plan.name || ""
+                        ).toLowerCase()
+                        : "";
+
+
+                const status =
+                    getStatus(subscription);
+
+
+                const matchesSearch =
+                    customerName.includes(search) ||
+                    planName.includes(search);
+
+
+                const matchesFilter =
+                    filter === "ALL" ||
+                    status === filter;
+
+
+                return (
+                    matchesSearch &&
+                    matchesFilter
+                );
+
+            }
+        );
+
+
+    if (
+        filtered.length === 0
+    ) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            📋
+                        </div>
+
+                        <div class="empty-title">
+                            No subscriptions found
+                        </div>
+
+                        <div class="empty-text">
+                            Try changing your search or create a new subscription.
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    table.innerHTML =
+        filtered.map(
+            subscription => {
+
+                const customer =
+                    getCustomer(
+                        subscription.customerId
+                    );
+
+
+                const plan =
+                    getPlan(
+                        subscription.planId
+                    );
+
+
+                const status =
+                    getStatus(
+                        subscription
+                    );
+
+
+                let badgeClass =
+                    "active";
+
+
+                if (
+                    status === "UPCOMING"
+                ) {
+
+                    badgeClass =
+                        "upcoming";
+
+                }
+
+
+                if (
+                    status === "EXPIRED"
+                ) {
+
+                    badgeClass =
+                        "expired";
+
+                }
+
+
+                if (
+                    status === "CANCELLED"
+                ) {
+
+                    badgeClass =
+                        "cancelled";
+
+                }
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            <div class="customer">
+
+                                <div class="avatar">
+
+                                    ${
+                                        initials(
+                                            customer
+                                                ? customer.name
+                                                : "?"
+                                        )
+                                    }
+
+                                </div>
+
+                                <div>
+
+                                    <div class="customer-name">
+
+                                        ${
+                                            customer
+                                                ? customer.name
+                                                : "Unknown Customer"
+                                        }
+
+                                    </div>
+
+                                    <div class="customer-email">
+
+                                        ${
+                                            customer
+                                                ? customer.email
+                                                : ""
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="plan-name">
+
+                                ${
+                                    plan
+                                        ? plan.name
+                                        : "Unknown Plan"
+                                }
+
+                            </div>
+
+                            <div class="plan-price">
+
+                                ${
+                                    plan
+                                        ? "₹" +
+                                          plan.price +
+                                          " • " +
+                                          getPlanDuration(plan)
+                                        : ""
+                                }
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            ${formatDate(
+                                subscription.startDate
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${formatDate(
+                                subscription.endDate
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="badge ${badgeClass}">
+
+                                ${status}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="action-btn edit-btn"
+                                    onclick="editSubscription(${subscription.id})">
+
+                                    Edit
+
+                                </button>
+
+
+                                ${
+                                    status === "CANCELLED"
+
+                                    ?
+
+                                    `
+
+                                    <button
+                                        class="action-btn reactivate-btn"
+                                        onclick="reactivateSubscription(${subscription.id})">
+
+                                        Reactivate
+
+                                    </button>
+
+                                    `
+
+                                    :
+
+                                    `
+
+                                    <button
+                                        class="action-btn renew-btn"
+                                        onclick="renewSubscription(${subscription.id})">
+
+                                        Renew
+
+                                    </button>
+
+
+                                    <button
+                                        class="action-btn subscription-cancel-btn"
+                                        onclick="cancelSubscription(${subscription.id})">
+
+                                        Cancel
+
+                                    </button>
+
+                                    `
+                                }
+
+
+                                <button
+                                    class="action-btn delete-btn"
+                                    onclick="deleteSubscription(${subscription.id})">
+
+                                    Delete
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* ================= CREATE ================= */
+
+function openCreateForm() {
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "New Subscription";
+
+
+    document.getElementById(
+        "subscriptionId"
+    ).value = "";
+
+
+    document.getElementById(
+        "customerSelect"
+    ).value = "";
+
+
+    document.getElementById(
+        "planSelect"
+    ).value = "";
+
+
+    document.getElementById(
+        "startDate"
+    ).value =
+        dateToInputValue(
+            new Date()
+        );
+
+
+    document.getElementById(
+        "endDate"
+    ).value = "";
+
+
+    document.getElementById(
+        "durationInfo"
+    ).textContent =
+        "Select a plan to automatically calculate the end date.";
+
+
+    document.getElementById(
+        "formOverlay"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* ================= CLOSE FORM ================= */
+
+function closeForm() {
+
+    document.getElementById(
+        "formOverlay"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* ================= EDIT ================= */
+
+function editSubscription(id) {
+
+    const subscription =
+        subscriptions.find(
+            s => s.id == id
+        );
+
+
+    if (!subscription) {
+        return;
+    }
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Edit Subscription";
+
+
+    document.getElementById(
+        "subscriptionId"
+    ).value =
+        subscription.id;
+
+
+    document.getElementById(
+        "customerSelect"
+    ).value =
+        subscription.customerId;
+
+
+    document.getElementById(
+        "planSelect"
+    ).value =
+        subscription.planId;
+
+
+    document.getElementById(
+        "startDate"
+    ).value =
+        subscription.startDate;
+
+
+    calculateEndDate();
+
+
+    document.getElementById(
+        "formOverlay"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* ================= SAVE ================= */
+
+async function saveSubscription() {
+
+    const id =
+        document.getElementById(
+            "subscriptionId"
+        ).value;
+
+
+    const customerId =
+        document.getElementById(
+            "customerSelect"
+        ).value;
+
+
+    const planId =
+        document.getElementById(
+            "planSelect"
+        ).value;
+
+
+    const startDate =
+        document.getElementById(
+            "startDate"
+        ).value;
+
+
+    const endDate =
+        document.getElementById(
+            "endDate"
+        ).value;
+
+
+    if (
+        !customerId ||
+        !planId ||
+        !startDate ||
+        !endDate
+    ) {
+
+        showToast(
+            "Please select customer, plan and start date"
+        );
+
+        return;
+
+    }
+
+
+    const data = {
+
+        customerId:
+            Number(customerId),
+
+        planId:
+            Number(planId),
+
+        startDate:
+            startDate,
+
+        endDate:
+            endDate
+
+    };
+
+
+    try {
+
+        let response;
+
+
+        if (id) {
+
+            response =
+                await fetch(
+                    API +
+                    "/subscriptions/" +
+                    id,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+
+        }
+
+        else {
+
+            response =
+                await fetch(
+                    API +
+                    "/subscriptions",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Request failed"
+            );
+
+        }
+
+
+        closeForm();
+
+
+        showToast(
+            id
+                ? "Subscription updated successfully"
+                : "Subscription created successfully"
+        );
+
+
+        await loadData();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        showToast(
+            "Unable to save subscription"
+        );
+
+    }
+
+}
+
+
+/* ================= RENEW ================= */
+
+async function renewSubscription(id) {
+
+    const subscription =
+        subscriptions.find(
+            s => s.id == id
+        );
+
+
+    if (!subscription) {
+        return;
+    }
+
+
+    const oldStart =
+        new Date(
+            subscription.startDate +
+            "T00:00:00"
+        );
+
+
+    const oldEnd =
+        new Date(
+            subscription.endDate +
+            "T00:00:00"
+        );
+
+
+    const today =
+        new Date();
+
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    const duration =
+        oldEnd.getTime() -
+        oldStart.getTime();
+
+
+    let newStart;
+
+    let newEnd;
+
+
+    if (
+        getStatus(subscription) ===
+        "EXPIRED"
+    ) {
+
+        newStart =
+            new Date(today);
+
+        newEnd =
+            new Date(
+                newStart.getTime() +
+                duration
+            );
+
+    }
+
+    else {
+
+        newStart =
+            new Date(oldStart);
+
+        newEnd =
+            new Date(
+                oldEnd.getTime() +
+                duration
+            );
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Renew this subscription?\n\n" +
+            "New end date: " +
+            newEnd.toLocaleDateString("en-IN")
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const data = {
+
+        customerId:
+            subscription.customerId,
+
+        planId:
+            subscription.planId,
+
+        startDate:
+            dateToInputValue(newStart),
+
+        endDate:
+            dateToInputValue(newEnd),
+
+        status:
+            "ACTIVE"
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                API +
+                "/subscriptions/" +
+                id,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(data)
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Renewal failed"
+            );
+
+        }
+
+
+        showToast(
+            "Subscription renewed successfully"
+        );
+
+
+        await loadData();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        showToast(
+            "Unable to renew subscription"
+        );
+
+    }
+
+}
+
+
+/* ================= CANCEL ================= */
+
+async function cancelSubscription(id) {
+
+    const subscription =
+        subscriptions.find(
+            s => s.id == id
+        );
+
+
+    if (!subscription) {
+        return;
+    }
+
+
+    if (
+        subscription.status === "CANCELLED"
+    ) {
+
+        showToast(
+            "Subscription is already cancelled"
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to cancel this subscription?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API +
+                "/subscriptions/" +
+                id +
+                "/cancel",
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Cancellation failed"
+            );
+
+        }
+
+
+        showToast(
+            "Subscription cancelled successfully"
+        );
+
+
+        await loadData();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        showToast(
+            "Unable to cancel subscription"
+        );
+
+    }
+
+}
+
+
+/* ================= REACTIVATE ================= */
+
+async function reactivateSubscription(id) {
+
+    const subscription =
+        subscriptions.find(
+            s => s.id == id
+        );
+
+
+    if (!subscription) {
+        return;
+    }
+
+
+    if (
+        subscription.status !== "CANCELLED"
+    ) {
+
+        showToast(
+            "Only cancelled subscriptions can be reactivated"
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Reactivate this subscription?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API +
+                "/subscriptions/" +
+                id +
+                "/reactivate",
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Reactivation failed"
+            );
+
+        }
+
+
+        showToast(
+            "Subscription reactivated successfully"
+        );
+
+
+        await loadData();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        showToast(
+            "Unable to reactivate subscription"
+        );
+
+    }
+
+}
+
+
+/* ================= DELETE ================= */
+
+async function deleteSubscription(id) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this subscription?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API +
+                "/subscriptions/" +
+                id,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Delete failed"
+            );
+
+        }
+
+
+        showToast(
+            "Subscription deleted successfully"
+        );
+
+
+        await loadData();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        showToast(
+            "Unable to delete subscription"
+        );
+
+    }
+
+}
+
+
+/* ================= TOAST ================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2500
+    );
+
+}
+
+
+/* ================= LOGOUT ================= */
+
+function logout() {
+
+    localStorage.removeItem(
+        "adminLoggedIn"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* ================= START ================= */
+
+loadData();
+
+</script>
+
+</body>
+
+</html>
